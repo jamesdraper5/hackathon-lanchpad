@@ -69,7 +69,8 @@ function showCommits(data) {
 	console.log('commitDays', commitDays);
 	console.log('commitData', commitData);
 
-	console.log('moment.utc().valueOf()', moment.utc().valueOf());
+	console.log('moment.utc().valueOf()', moment().subtract(7, 'days').utc().valueOf());
+	console.log('Date.UTC(2015, 10, 19)', Date.UTC(2015, 10, 19));
 
     $('#commitsChart').highcharts({
         chart: {
@@ -128,7 +129,7 @@ function showCommits(data) {
             }
         },
         series: [{
-        	pointStart: moment.utc().valueOf(),
+        	pointStart: moment().subtract(7, 'days').startOf('day').utc().valueOf(),
             pointInterval: 24 * 3600 * 1000, // one day
             name: 'Commits',
             data: commitData
