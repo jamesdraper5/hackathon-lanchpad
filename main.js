@@ -9,6 +9,11 @@ function openDeskTicket(e) {
 
 $(document).ready(function(){
 
+	/******** API calls *********/
+
+
+
+	/******** Event Handlers *******/
 	$('#sectionTicketList').find('tr.table-row').on('click', openDeskTicket);
 
 });
