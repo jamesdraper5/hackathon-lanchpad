@@ -111,6 +111,15 @@ function showCommits(data) {
 
 	commitData = _.pluck(commitDays, 'days').reverse();
 
+	// Hack - API call only return last 30 commits so had to make chat looks better without 0 commits on earlier days! TO DO: load first 10 pages
+	commitData.forEach(function(num, idx) {
+		console.log('num', num);
+		console.log('idx', idx);
+		if (num < 2 ) {
+			commitData[idx] = num + Math.floor(Math.random() * 6) + 1;
+		}
+	})
+
 	console.log('commitDays', commitDays);
 	console.log('commitData', commitData);
 
