@@ -16,6 +16,59 @@ function openProjectsTask(e) {
 	e.preventDefault();
 }
 
+function showTaskChart(tasks) {
+
+	console.log('tasks', tasks);
+
+    // Build the chart
+    $('#taskPieChart').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            height: 270,
+            backgroundColor: '#333333'
+        },
+        title: {
+            text: 'Tasks by Type',
+            style: {
+            	color: '#ffffff'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                colors: ['#24be43', '#d45b4e']
+            }
+        },
+        series: [{
+            name: 'Tasks',
+            colorByPoint: true,
+            data: [
+            	{
+	                name: 'Upcoming',
+	                y: parseInt(tasks.active, 10)
+	            },
+	            {
+	                name: 'Late',
+	                y: parseInt(tasks.late, 10),
+	                sliced: true,
+	                selected: true
+	            }
+            ]
+        }]
+    });
+
+}
+
 function showCommits(data) {
 
 	var commitData = [],
@@ -42,29 +95,21 @@ function showCommits(data) {
 				days: 0
 			}
 		];
-		/*
-		day1Count = 0,
-		day2Count = 0,
-		day3Count = 0,
-		day4Count = 0,
-		day5Count = 0,
-		day6Count = 0,
-		day7Count = 0,
-		*/
+
 		today = moment();
 
 	data.forEach(function(commit) {
-		//console.log('date', commit.created_at);
-
 		var commitTime = moment(commit.created_at);
 		var dayCommitted = today.diff(commitTime, 'days');
-		commitDays[dayCommitted].days += 1;
 
-		//console.log('foo', foo);
+		console.log('date', moment(commit.created_at).format('ddd mmmm') );
+		console.log('dayCommitted', dayCommitted);
+		console.log('commitDays[dayCommitted]', commitDays[dayCommitted]);
+		commitDays[dayCommitted].days += 1;
 
 	});
 
-	commitData = _.pluck(commitDays, 'days');
+	commitData = _.pluck(commitDays, 'days').reverse();
 
 	console.log('commitDays', commitDays);
 	console.log('commitData', commitData);
@@ -79,7 +124,7 @@ function showCommits(data) {
             backgroundColor: '#333333'
         },
         title: {
-            text: 'Your Commits this Week',
+            text: 'My Commits this Week',
             style: {
             	color: '#ffffff'
             }
@@ -304,63 +349,38 @@ function addTasksChart(data) {
 $(document).ready(function(){
 
 	/******** API calls *********/
-	/*
-	var tasksUrl = 'data/tasksCreatedAndCompleted.json';
-	$.getJSON(tasksUrl,
-		function() {
-			console.log('222');
-		}
-	);
 
 	$.ajax({
-	  dataType: "json",
-	  url: tasksUrl,
-	  data: {
-	  	test: 'e'
-	  },
-	  success: function() {
-			console.log('222');
+		method: "GET",
+		url: 'https://digitalcrew.teamwork.com/people/41400.json?fullprofile=1&getProjectsStats=1&getTasksStats=1&getMilestonesStats=1',
+		beforeSend: function (xhr) {
+		  	xhr.setRequestHeader ("Authorization", "Basic " + btoa(window.teamworkAPIKey + ":" + '123'));
 		}
-	});
-
-
+	})
 	.done(function( data ) {
-		console.log( "second success" );
+		console.log( "Data: ", data );
+		if ( data.person && data.person.tasks ) {
+			showTaskChart(data.person.tasks);
+		}
 	});
-
-	var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
-	  $.getJSON( flickerAPI, {
-	    tags: "mount rainier",
-	    tagmode: "any",
-	    format: "json"
-	  })
-	    .done(function( data ) {
-	      console.log('data', data);
-	    });
-
-    */
-
-	/*
-	.fail(function(e) {
-		console.log( "error", e );
-		//addTasksChart(data)
-	})
-	.always(function() {
-		console.log( "complete" );
-	});
-	*/
 
 
 	$.ajax({
-	  method: "GET",
-	  url: 'https://api.github.com/users/jamesdraper5/events',
-	  beforeSend: function (xhr) {
-	  }
+		method: "GET",
+		url: 'https://api.github.com/users/jamesdraper5/events',
+		data: {
+			page: 1
+		},
+		beforeSend: function (xhr) {
+		  	xhr.setRequestHeader ("Authorization", "Basic " + btoa(window.gitUserName + ":" + window.gitUserPassword));
+		}
 	})
-	  .done(function( data ) {
-	    console.log( "Data: ", data );
-	    showCommits(data);
-	  });
+	.done(function( data ) {
+		console.log( "Data: ", data );
+		showCommits(data);
+	});
+
+
 
 
 	/******** Event Handlers *******/
