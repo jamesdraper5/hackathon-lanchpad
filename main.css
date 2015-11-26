@@ -1,0 +1,18 @@
+body {
+	background: #222;
+	color: #FFF;
+	font: 14px normal Helvetica, Arial, sans-serif;
+}
+article {
+	background: #333;
+	border: 5px solid #222;
+	height: 300px;
+	text-align: center;
+	padding: 10px;
+}
+article h1 {
+	font-size: 30px;
+}
+.large-text {
+	font-size: 140px;
+}

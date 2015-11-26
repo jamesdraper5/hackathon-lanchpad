@@ -1,0 +1,25 @@
+{
+  "name": "hackathon-launchpad",
+  "authors": [
+    "James Draper <jamesdrape@gmail.com>"
+  ],
+  "description": "hackathon project",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  },
+  "devDependencies": {
+    "less": "~2.5.3"
+  }
+}
