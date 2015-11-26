@@ -2,11 +2,47 @@
 <html lang="en">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<head>
-		<title>VOTE FOR ME!!!!</title>
+		<title>Teamwork.com Launchpad</title>
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" href="main.css" />
 	</head>
 	<body>
+
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#launchpad-menu" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#">Brand</a>
+		    </div>
+		  </div><!-- /.container-fluid -->
+		</nav>
+
+		<!--
+		<div class="collapse navbar-collapse" id="launchpad-menu">
+		      <ul class="nav navbar-nav">
+		        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+		        <li><a href="#">Link</a></li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="#">Action</a></li>
+		            <li><a href="#">Another action</a></li>
+		            <li><a href="#">Something else here</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">Separated link</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">One more separated link</a></li>
+		          </ul>
+		        </li>
+		      </ul>
+		</div>
+		-->
 
 		<div class="container-fluid">
 			<div class="row">
@@ -19,10 +55,97 @@
 					<h1>Desk</h1>
 				</article>
 				<article class="col-md-6">
+					<h1>My Desk tickets</h1>
 
+					<section class="inbox--body">
+					    <div id="sectionTicketList" class="table-body-scroll">
 
+					        <table class="table-inbox table-hover inboxListTable">
+					            <tbody class="table-body" data-bind="foreach: tickets">
 
-					<h1>Something</h1>
+					                <tr class="table-row have-attached is-commented hasCursor status-active" data-ticketId="84137612">
+					                    <td class="column-customer">
+					                        <div class="box-customer">
+					                            <span class="img-hold"><img alt=" " data-bind="attr:{'src':customer.avatarURL() }" onerror="this.src='images/examples/noPhoto1.png';" src="https://d2ojpxxtu63wzl.cloudfront.net/static/c5f7a752a1600ebc01784bae7678a5fc_6dc62ca7ef855ebf080147888c5c7bdc4332cb800a29f58027d842e189121030"></span>
+					                            <!-- ko ifnot: customer.firstName() == "" -->
+					                                <span class="name-hold" data-bind="text:customer.firstName() + ' ' + customer.lastName()">Daniel Mueller</span>
+					                            <!-- /ko -->
+					                            <!-- ko if: customer.firstName() == "" --><!-- /ko -->
+					                            <!-- ko if: $parent.isUnifiedInbox || $parent.isMyInbox || $parent.isSearchPage -->
+					                                <div class="inbox" data-bind="text:$parent.GetInboxName(inboxId())">Adrian Kerr</div>
+					                            <!-- /ko -->
+					                        </div>
+					                    </td>
+					                    <td  class="table-col-60 column-subject">
+					                        <a class="box-subject" href="#">
+					                            <span class="status circle" data-toggle="tooltip" data-placement="top" data-bind="attr:{title:status()}" title="active"></span>
+					                            <div class="subject-content">
+					                                <h4 class="in_title">
+					                                    <span class="title-label">Please tell me who to contact</span>
+					                                </h4>
+					                                    <p class="in_preview" data-bind="text:preview">Adrian, Please help. I have 700 or so active projects and I want to turn 650 inactive. Is there a way to do so very quickly? Going through one by one is very slow and painful. Also, how do I find my archived projects once I make them inactive. Thanks</p>
+					                            </div>
+					                        </a>
+					                    </td>
+					                </tr>
+
+					                <tr class="table-row have-attached is-commented hasCursor status-active" data-ticketId="84137612">
+					                    <td class="column-customer">
+					                        <div class="box-customer">
+					                            <span class="img-hold"><img alt=" " data-bind="attr:{'src':customer.avatarURL() }" onerror="this.src='images/examples/noPhoto1.png';" src="https://d2ojpxxtu63wzl.cloudfront.net/static/c5f7a752a1600ebc01784bae7678a5fc_6dc62ca7ef855ebf080147888c5c7bdc4332cb800a29f58027d842e189121030"></span>
+					                            <!-- ko ifnot: customer.firstName() == "" -->
+					                                <span class="name-hold" data-bind="text:customer.firstName() + ' ' + customer.lastName()">Matthew Dickinson</span>
+					                            <!-- /ko -->
+					                            <!-- ko if: customer.firstName() == "" --><!-- /ko -->
+					                            <!-- ko if: $parent.isUnifiedInbox || $parent.isMyInbox || $parent.isSearchPage -->
+					                                <div class="inbox" data-bind="text:$parent.GetInboxName(inboxId())">James Draper</div>
+					                            <!-- /ko -->
+					                        </div>
+					                    </td>
+					                    <td  class="table-col-60 column-subject">
+					                        <a class="box-subject" href="#">
+					                            <span class="status circle" data-toggle="tooltip" data-placement="top" data-bind="attr:{title:status()}" title="active"></span>
+					                            <div class="subject-content">
+					                                <h4 class="in_title">
+					                                    <span class="title-label">Please tell me who to contact</span>
+					                                </h4>
+					                                    <p class="in_preview" data-bind="text:preview">Adrian, Please help. I have 700 or so active projects and I want to turn 650 inactive. Is there a way to do so very quickly? Going through one by one is very slow and painful. Also, how do I find my archived projects once I make them inactive. Thanks</p>
+					                            </div>
+					                        </a>
+					                    </td>
+					                </tr>
+
+					                <tr class="table-row have-attached is-commented hasCursor status-active" data-ticketId="84137612">
+					                    <td class="column-customer">
+					                        <div class="box-customer">
+					                            <span class="img-hold"><img alt=" " data-bind="attr:{'src':customer.avatarURL() }" onerror="this.src='images/examples/noPhoto1.png';" src="https://d2ojpxxtu63wzl.cloudfront.net/static/c5f7a752a1600ebc01784bae7678a5fc_6dc62ca7ef855ebf080147888c5c7bdc4332cb800a29f58027d842e189121030"></span>
+					                            <!-- ko ifnot: customer.firstName() == "" -->
+					                                <span class="name-hold" data-bind="text:customer.firstName() + ' ' + customer.lastName()">Daniel Mueller</span>
+					                            <!-- /ko -->
+					                            <!-- ko if: customer.firstName() == "" --><!-- /ko -->
+					                            <!-- ko if: $parent.isUnifiedInbox || $parent.isMyInbox || $parent.isSearchPage -->
+					                                <div class="inbox" data-bind="text:$parent.GetInboxName(inboxId())">James Draper</div>
+					                            <!-- /ko -->
+					                        </div>
+					                    </td>
+					                    <td  class="table-col-60 column-subject">
+					                        <a class="box-subject" href="#">
+					                            <span class="status circle" data-toggle="tooltip" data-placement="top" data-bind="attr:{title:status()}" title="active"></span>
+					                            <div class="subject-content">
+					                                <h4 class="in_title">
+					                                    <span class="title-label">Please tell me who to contact</span>
+					                                </h4>
+					                                    <p class="in_preview" data-bind="text:preview">Adrian, Please help. I have 700 or so active projects and I want to turn 650 inactive. Is there a way to do so very quickly? Going through one by one is very slow and painful. Also, how do I find my archived projects once I make them inactive. Thanks</p>
+					                            </div>
+					                        </a>
+					                    </td>
+					                </tr>
+
+					            </tbody>
+					        </table>
+
+					    </div>
+					</section>
 				</article>
 				<!-- <article class="col-md-3">.col-md-3</article> -->
 			</div>
@@ -32,28 +155,42 @@
 				</article>
 				<article class="col-md-6">
 					<a href="https://digitalcrew.teamwork.com" target="_blank">
-						<h1>Something</h1>
+						<h1>My Projects Tasks</h1>
 						<p class="large-text">
 							3
 						</p>
 					</a>
 				</article>
 				<article class="col-md-3">
-					<h1>My Projects tasks</h1>
+					<h1>Something</h1>
 				</article>
 				<!-- <article class="col-md-3">.col-md-3</article> -->
 			</div>
 			<div class="row">
 				<article class="col-md-6">
-					<h1>Something</h1>
+					<a href="https://digitalcrew.teamwork.com" target="_blank">
+						<h1>Github Commits</h1>
+						<p class="large-text">
+							3
+						</p>
+					</a>
 				</article>
 				<article class="col-md-6">
-					<h1>Something</h1>
+					<a href="https://digitalcrew.teamwork.com" target="_blank">
+						<h1>Something</h1>
+						<p class="large-text">
+							3
+						</p>
+					</a>
 				</article>
 				<!-- <article class="col-md-3">.col-md-3</article>
 				<article class="col-md-3">.col-md-3</article> -->
 			</div>
 		</div>
 
+
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	    <script src="main.js"></script>
 	</body>
 </html>
