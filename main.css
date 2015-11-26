@@ -202,7 +202,6 @@ tr.table-row.hasCursor td.column-update {
 
 
 /****************** PROJECTS TASKS *********************/
-
 .table-tasks {
     width: 100%;
     position: relative;
@@ -319,6 +318,9 @@ table .table-col-60 {
 .status.status-active, .status-active .sections--header .status-select .btn-status, .status-active .status {
     background-color: #24be43;
 }
+.status.status-late, .status-late .sections--header .status-select .btn-status, .status-late .status {
+    background-color: #d45b4e;
+}
 .status.circle {
     display: inline-block;
     width: 7px;
@@ -372,7 +374,13 @@ tr.table-row.hasCursor td.column-update {
 	font-size: 11px;
 }
 
-/******************   *********************/
+/****************** PRODUCT LAUNCHER  *********************/
+.launch-product img {
+	margin-top: 110px;
+}
+.launch-product svg {
+	margin-top: 60px;
+}
 
 /******************   *********************/
 

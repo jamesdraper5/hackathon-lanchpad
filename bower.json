@@ -17,7 +17,9 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.6"
+    "bootstrap": "~3.3.6",
+    "moment": "~2.10.6",
+    "lodash": "~3.10.1"
   },
   "devDependencies": {
     "less": "~2.5.3"
