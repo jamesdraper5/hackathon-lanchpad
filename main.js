@@ -1,3 +1,8 @@
+function TasksViewModel() {
+    this.tasks = [];
+}
+
+
 function openDeskTicket(e) {
 	var $target = $(e.target);
 	var ticketNum = $target.closest('tr.table-row').attr('data-ticketId');
@@ -8,6 +13,7 @@ function openDeskTicket(e) {
 }
 
 function openProjectsTask(e) {
+	console.log('e', e);
 	var $target = $(e.target);
 	var ticketNum = $target.closest('tr.table-row').attr('data-taskId');
 	var ticketUrl = "https://digitalcrew.teamwork.com/tasks/" + ticketNum;
@@ -18,7 +24,7 @@ function openProjectsTask(e) {
 
 function showTaskChart(tasks) {
 
-	console.log('tasks', tasks);
+	//console.log('tasks', tasks);
 
     // Build the chart
     $('#taskPieChart').highcharts({
@@ -102,9 +108,9 @@ function showCommits(data) {
 		var commitTime = moment(commit.created_at);
 		var dayCommitted = today.diff(commitTime, 'days');
 
-		console.log('date', moment(commit.created_at).format('ddd mmmm') );
-		console.log('dayCommitted', dayCommitted);
-		console.log('commitDays[dayCommitted]', commitDays[dayCommitted]);
+		//console.log('date', moment(commit.created_at).format('ddd mmmm') );
+		//console.log('dayCommitted', dayCommitted);
+		//console.log('commitDays[dayCommitted]', commitDays[dayCommitted]);
 		commitDays[dayCommitted].days += 1;
 
 	});
@@ -113,18 +119,18 @@ function showCommits(data) {
 
 	// Hack - API call only return last 30 commits so had to make chat looks better without 0 commits on earlier days! TO DO: load first 10 pages
 	commitData.forEach(function(num, idx) {
-		console.log('num', num);
-		console.log('idx', idx);
+		//console.log('num', num);
+		//console.log('idx', idx);
 		if (num < 2 ) {
 			commitData[idx] = num + Math.floor(Math.random() * 6) + 1;
 		}
 	})
 
-	console.log('commitDays', commitDays);
-	console.log('commitData', commitData);
+	//console.log('commitDays', commitDays);
+	//console.log('commitData', commitData);
 
-	console.log('moment.utc().valueOf()', moment().subtract(7, 'days').utc().valueOf());
-	console.log('Date.UTC(2015, 10, 19)', Date.UTC(2015, 10, 19));
+	//console.log('moment.utc().valueOf()', moment().subtract(7, 'days').utc().valueOf());
+	//console.log('Date.UTC(2015, 10, 19)', Date.UTC(2015, 10, 19));
 
     $('#commitsChart').highcharts({
         chart: {
@@ -192,7 +198,7 @@ function showCommits(data) {
 }
 
 function addTasksChart(data) {
-	console.log('1');
+	//console.log('1');
 
 	var data = {
 		tasks: {
@@ -367,7 +373,7 @@ $(document).ready(function(){
 		}
 	})
 	.done(function( data ) {
-		console.log( "Data: ", data );
+		//console.log( "Data: ", data );
 		if ( data.person && data.person.tasks ) {
 			showTaskChart(data.person.tasks);
 		}
@@ -385,11 +391,24 @@ $(document).ready(function(){
 		}
 	})
 	.done(function( data ) {
-		console.log( "Data: ", data );
+		//console.log( "Data: ", data );
 		showCommits(data);
 	});
 
 
+	$.ajax({
+		method: "GET",
+		url: 'https://digitalcrew.teamwork.com/tasks.json?i=1&filter=anytime&sort=duedate&responsible-party-ids=41400&includeToday=1&pageSize=20&page=1&today=20151127',
+		beforeSend: function (xhr) {
+		  	xhr.setRequestHeader ("Authorization", "Basic " + btoa(window.teamworkAPIKey + ":" + '123'));
+		}
+	})
+	.done(function( data ) {
+		console.log( "Data: ", data );
+		//if ( data.person && data.person.tasks ) {
+			addTasksToList(data);
+		//}
+	});
 
 
 	/******** Event Handlers *******/
@@ -401,17 +420,49 @@ $(document).ready(function(){
 	addTasksChart();
 
 
-	function MyViewModel() {
-	    this.tasks = [
-	        {
-	        	title: 'task name',
-	        	preview: 250,
-	        	dueDate: '20151102',
-	        	startDate: '20151101',
-	        	status: 'high'
-	        }
-	    ]
+	function addTasksToList(data) {
+		var taskVM = new TasksViewModel();
+
+		data['todo-items'].forEach(function(item){
+			var self = item;
+			newItem = {
+				dueDate: ko.pureComputed( function() {
+					if ( item['due-date'] != '' ) {
+						return 'Due ' + moment(item['due-date'], 'YYYYMMDD').format('MMM Do YYYY');
+
+					} else {
+						return '';
+					}
+				}),
+				startDate: ko.pureComputed( function() {
+					if ( item['start-date'] != '' ) {
+						return 'Start ' + moment(item['start-date'], 'YYYYMMDD').format('MMM Do YYYY');
+
+					} else {
+						return '';
+					}
+				}),
+				priority: item.priority,
+				content: item.content,
+				description: item.description,
+				priorityText: ko.pureComputed( function() {
+					if ( self.priority == '' ) {
+						return '';
+					} else {
+						return self.priority + ' priority';
+					}
+				}),
+				id: item.id
+			}
+			taskVM.tasks.push(newItem);
+		});
+
+
+		console.log('taskVM', taskVM);
+
+		ko.applyBindings(taskVM);
 	}
-	ko.applyBindings(new MyViewModel());
+
+	//ko.applyBindings(new TasksViewModel());
 
 });
