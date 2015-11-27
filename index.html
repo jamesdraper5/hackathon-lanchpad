@@ -117,12 +117,11 @@
 						<div id="taskChart"></div>
 					</a>
 				</article>
-				<!-- <article class="col-md-3">.col-md-3</article>
-				<article class="col-md-3">.col-md-3</article> -->
 			</div>
 		</div>
 
-		<div data-bind="template: { name: 'person-template', foreach: people }"></div>
+
+		<div data-bind="template: { name: 'task-template', foreach: tasks }"></div>
 
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -133,9 +132,9 @@
 	    <script src="private.js"></script>
 	    <script src="main.js"></script>
 
-	    <script type="text/html" id="person-template">
-	        <h3 data-bind="text: name"></h3>
-	        <p>Credits: <span data-bind="text: credits"></span></p>
+	    <script type="text/html" id="task-template">
+	        <h3 data-bind="text: title"></h3>
+	        <p>Credits: <span data-bind="text: preview"></span></p>
 	    </script>
 
 	</body>

@@ -402,9 +402,14 @@ $(document).ready(function(){
 
 
 	function MyViewModel() {
-	    this.people = [
-	        { name: 'Franklin', credits: 250 },
-	        { name: 'Mario', credits: 5800 }
+	    this.tasks = [
+	        {
+	        	title: 'task name',
+	        	preview: 250,
+	        	dueDate: '20151102',
+	        	startDate: '20151101',
+	        	status: 'high'
+	        }
 	    ]
 	}
 	ko.applyBindings(new MyViewModel());
